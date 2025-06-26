@@ -1,0 +1,32 @@
+name: Multi-OS Script Runner
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  windows_job:
+    name: Run PowerShell on Windows
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run PowerShell script
+        shell: pwsh
+        run: .\scripts\run.ps1
+
+  linux_job:
+    name: Run Bash on Linux
+    needs: windows_job          # executes after the Windows job completes
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Make script executable
+        run: chmod +x ./scripts/run.sh
+
+      - name: Run Bash script
+        run: ./scripts/run.sh

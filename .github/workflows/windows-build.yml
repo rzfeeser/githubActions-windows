@@ -3,7 +3,7 @@ name: Multi-OS Script Runner
 on:
   push:
     branches: [main]
-  workflow_dispatch:
+  workflow_dispatch:   # this is a button press
 
 jobs:
   windows_job:
